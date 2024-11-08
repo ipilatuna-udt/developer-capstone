@@ -6,10 +6,10 @@ import { createContext } from "react";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#F4CE14",
+      main: "#495E57",
     },
     secondary: {
-      main: "#495E57",
+      main: "#F4CE14",
     },
   },
 });
