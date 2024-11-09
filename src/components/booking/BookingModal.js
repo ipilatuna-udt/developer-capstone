@@ -138,6 +138,7 @@ function BookingModal({ booking, onSave, open, setOpen }) {
         >
           <FormControl>
             <DatePicker
+              id="date-picker"
               disablePast
               label="Date"
               value={formik.values.date}
@@ -157,7 +158,7 @@ function BookingModal({ booking, onSave, open, setOpen }) {
 
           <FormControl>
             <TimePicker
-              id="time"
+              id="time-picker"
               label="Time"
               views={["hours"]}
               viewRenderers={{
@@ -182,13 +183,19 @@ function BookingModal({ booking, onSave, open, setOpen }) {
           </FormControl>
 
           <FormControl>
-            <InputLabel id="guests-label">Guests</InputLabel>
+            <InputLabel id="guests-label" htmlFor="guests-select">
+              Guests
+            </InputLabel>
             <Select
-              id="guests"
               labelId="guests-label"
               name="guests"
               label="Guests"
               error={!!getFieldError("guests")}
+              slotProps={{
+                input: {
+                  id: "guests-select",
+                },
+              }}
               {...formik.getFieldProps("guests")}
             >
               <MenuItem value="" disabled>
@@ -206,13 +213,19 @@ function BookingModal({ booking, onSave, open, setOpen }) {
           </FormControl>
 
           <FormControl>
-            <InputLabel id="occasion-label">Occasion</InputLabel>
+            <InputLabel id="occasion-label" htmlFor="occasion-select">
+              Occasion
+            </InputLabel>
             <Select
-              id="occasion"
               labelid="occasion-label"
               name="occasion"
               label="Occasion"
               error={!!getFieldError("occasion")}
+              slotProps={{
+                input: {
+                  id: "occasion-select",
+                },
+              }}
               {...formik.getFieldProps("occasion")}
             >
               <MenuItem value="" disabled>

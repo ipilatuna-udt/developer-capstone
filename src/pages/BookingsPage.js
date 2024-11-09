@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Button, IconButton, Paper, InputBase } from "@mui/material";
+import { Box, Button, IconButton, Paper, InputBase, InputLabel } from "@mui/material";
 import { BookingList, BookingModal } from "../components/booking";
 import { defaultBookings } from "../components/booking/defaultBookings";
 import {
@@ -86,10 +86,12 @@ function BookingsPage() {
           p: 2,
         }}
       >
-        <Title title="Reservations" />
+        <Title title="Bookings" />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Paper sx={{ display: "flex" }}>
+          <Paper sx={{ display: "flex"}}>
+            <InputLabel sx={{visibility: "hidden", width: 0}} htmlFor="search-bookings-input">Search</InputLabel>
             <InputBase
+            id="search-bookings-input"
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search Booking"
               inputProps={{ "aria-label": "search booking" }}
