@@ -10,6 +10,7 @@ function Footer() {
         color: theme.palette.secondary.contrastText,
         p: 2,
         textAlign: "center",
+        marginTop: "auto",
       }}
     >
       <p>© 2024</p>

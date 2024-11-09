@@ -22,7 +22,14 @@ import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { useTheme } from "@emotion/react";
 
 const availableGuests = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-const occasions = ["Birthday", "Anniversary", "Date Night", "Other"];
+const occasions = [
+  "Birthday",
+  "Anniversary",
+  "Wedding",
+  "Graduation",
+  "Date Night",
+  "Other",
+];
 
 const minHour = DateTime.now().set({ hour: 10 }).startOf("hour");
 const maxHour = DateTime.now().set({ hour: 21 }).endOf("hour");

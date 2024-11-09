@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
-import { BookingModal } from "../components/booking";
+import { Box, Button } from "@mui/material";
+import { BookingList, BookingModal } from "../components/booking";
+import { defaultBookings } from "../components/booking/defaultBookings";
+import { Title } from "../components";
 
 function ReservationsPage() {
   const [open, setOpen] = useState(false);
@@ -10,14 +12,23 @@ function ReservationsPage() {
 
   return (
     <>
-      <div>
-        <h1>Reservations Page</h1>
-        <div>
+      <Box
+        sx={{
+          backgroundColor: "lightgray",
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          p: 2,
+        }}
+      >
+        <Title title="Reservations" />
+        <Box textAlign="center">
           <Button onClick={handleClick} variant="contained">
             Book Now
           </Button>
-        </div>
-      </div>
+        </Box>
+        <BookingList bookings={defaultBookings} />
+      </Box>
       <BookingModal open={open} setOpen={setOpen} />
     </>
   );

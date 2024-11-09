@@ -1,8 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { pages } from "./routing";
 import { Box } from "@mui/material";
-import "./Main.css";
-
 function Main() {
   return (
     <Box className="main-container">
