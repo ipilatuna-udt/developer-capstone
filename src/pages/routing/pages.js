@@ -1,7 +1,7 @@
 import LoginPage from "../LoginPage";
 import MenuPage from "../MenuPage";
 import OrderOnlinePage from "../OrderOnlinePage";
-import ReservationsPage from "../ReservationsPage";
+import BookingsPage from "../BookingsPage";
 import AboutPage from "../AboutPage";
 import HomePage from "../HomePage";
 
@@ -22,9 +22,9 @@ const pages = [
     label: "Menu",
   },
   {
-    href: "/reservations",
-    component: ReservationsPage,
-    label: "Reservations",
+    href: "/bookings",
+    component: BookingsPage,
+    label: "Bookings",
   },
   {
     href: "/order-online",

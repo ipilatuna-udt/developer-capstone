@@ -14,6 +14,7 @@ function BookingList({ bookings }) {
       {bookings.map((booking) => (
         <BookingCard key={booking.id} booking={booking} />
       ))}
+      {bookings.length === 0 && <p>No bookings available</p>}
     </Box>
   );
 }

@@ -87,6 +87,10 @@ function BookingModal({ open, setOpen }) {
   };
 
   const handleCancel = () => {
+    if (!formik.dirty) {
+      handleClose();
+      return;
+    }
     if (window.confirm("Are you sure you want to cancel?")) {
       formik.resetForm();
       handleClose();
