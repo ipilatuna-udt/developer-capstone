@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import BookingCard from "./BookingCard";
 
-function BookingList({ bookings }) {
+function BookingList({ bookings, onEdit, onDelete }) {
   return (
     <Box
       sx={{
@@ -12,7 +12,12 @@ function BookingList({ bookings }) {
       }}
     >
       {bookings.map((booking) => (
-        <BookingCard key={booking.id} booking={booking} />
+        <BookingCard
+          key={booking.id}
+          booking={booking}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
       ))}
       {bookings.length === 0 && <p>No bookings available</p>}
     </Box>

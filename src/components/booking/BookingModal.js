@@ -16,7 +16,7 @@ import {
 import { DatePicker, TimePicker } from "@mui/x-date-pickers";
 import { useFormik } from "formik";
 import { DateTime } from "luxon";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import * as Yup from "yup";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { useTheme } from "@emotion/react";
@@ -51,7 +51,8 @@ Yup.addMethod(Yup.string, "hourRange", function (minHour, maxHour, message) {
 const defaultDate = DateTime.now().startOf("day");
 const defaultTime = DateTime.now().set({ hour: 10 }).startOf("hour");
 
-function BookingModal({ open, setOpen }) {
+function BookingModal({ booking, onSave, open, setOpen }) {
+  const title = booking ? "Edit Booking" : "New Booking";
   const formik = useFormik({
     initialValues: {
       date: defaultDate,
@@ -60,7 +61,14 @@ function BookingModal({ open, setOpen }) {
       occasion: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      const id = booking?.id || Date.now();
+      const newBooking = {
+        ...values,
+        id,
+        date: values.date.toISODate(),
+        time: values.time.toISOTime().slice(0, 2),
+      };
+      onSave(newBooking);
     },
     validationSchema: Yup.object({
       date: Yup.date().required("Date is required"),
@@ -71,6 +79,18 @@ function BookingModal({ open, setOpen }) {
       occasion: Yup.string().required("Occasion is required"),
     }),
   });
+
+  useEffect(() => {
+    if (booking) {
+      formik.setValues({
+        date: DateTime.fromISO(booking.date),
+        time: DateTime.fromISO(booking.date).set({ hour: booking.time }),
+        guests: booking.guests.toString(),
+        occasion: booking.occasion,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [booking]);
 
   const getFieldError = useCallback(
     (field) => {
@@ -104,7 +124,7 @@ function BookingModal({ open, setOpen }) {
       fullWidth
       fullScreen={fullScreen}
     >
-      <DialogTitle>Book Now</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <Box
           component="form"

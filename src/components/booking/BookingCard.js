@@ -1,10 +1,8 @@
 import React from "react";
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
-  CardHeader,
   CardMedia,
   CardActions,
   IconButton,
@@ -36,7 +34,7 @@ function FieldDisplay({ icon, label, text }) {
   );
 }
 
-function BookingCard({ booking }) {
+function BookingCard({ booking, onEdit, onDelete }) {
   return (
     <Card
       sx={{
@@ -67,7 +65,11 @@ function BookingCard({ booking }) {
           label="Date"
           text={booking.date}
         />
-        <FieldDisplay icon={<TimeIcon />} label="Time" text={booking.time} />
+        <FieldDisplay
+          icon={<TimeIcon />}
+          label="Time"
+          text={`${booking.time}:00`}
+        />
         <FieldDisplay
           icon={<GuestsIcon />}
           label="Guests"
@@ -77,10 +79,10 @@ function BookingCard({ booking }) {
       <CardActions
         sx={{ justifyContent: "center", backgroundColor: "whitesmoke" }}
       >
-        <IconButton size="small">
+        <IconButton size="small" onClick={() => onEdit(booking)}>
           <EditIcon color="primary" />
         </IconButton>
-        <IconButton size="small">
+        <IconButton size="small" onClick={() => onDelete(booking.id)}>
           <DeleteIcon color="error" />
         </IconButton>
       </CardActions>
