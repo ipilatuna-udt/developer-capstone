@@ -20,7 +20,7 @@ import React, { useCallback, useEffect } from "react";
 import * as Yup from "yup";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { useTheme } from "@emotion/react";
-import {fetchAPI} from "./api";
+import { fetchAPI } from "./api";
 
 const availableGuests = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const occasions = [
@@ -75,15 +75,12 @@ Yup.addMethod(Yup.string, "dateRange", function (minDate, maxDate, message) {
 const defaultDate = DateTime.now().startOf("day");
 const defaultTime = DateTime.now().set({ hour: 10 }).startOf("hour");
 
-
-function BookingModal({ booking, onSave, open, setOpen }) {
+function BookingForm({ booking, onSave, open, setOpen }) {
   const title = booking ? "Edit Booking" : "New Booking";
 
   const availableTimes = fetchAPI(new Date());
-  const shouldDisableTime = (
-    value,
-    view,
-  ) => view === 'hours' && !availableTimes.includes(`${value.hour}:00`);
+  const shouldDisableTime = (value, view) =>
+    view === "hours" && !availableTimes.includes(`${value.hour}:00`);
 
   const formik = useFormik({
     initialValues: {
@@ -103,7 +100,13 @@ function BookingModal({ booking, onSave, open, setOpen }) {
       onSave(newBooking);
     },
     validationSchema: Yup.object({
-      date: Yup.string().required("Date is required").dateRange(DateTime.now().startOf('day'), maxDate, "Date must be within 30 days"),
+      date: Yup.string()
+        .required("Date is required")
+        .dateRange(
+          DateTime.now().startOf("day"),
+          maxDate,
+          "Date must be within 30 days"
+        ),
       time: Yup.string()
         .required("Time is required")
         .hourRange(minHour, maxHour, "Time must be between 10 AM and 9 PM")
@@ -182,6 +185,9 @@ function BookingModal({ booking, onSave, open, setOpen }) {
                 field: {
                   readOnly: true,
                   fullWidth: true,
+                  inputProps: {
+                    'data-testid': 'date-picker'
+                  }
                 },
               }}
             />
@@ -209,6 +215,9 @@ function BookingModal({ booking, onSave, open, setOpen }) {
               slotProps={{
                 field: {
                   readOnly: true,
+                  inputProps: {
+                    'data-testid': 'time-picker'
+                  }
                 },
               }}
             />
@@ -229,6 +238,7 @@ function BookingModal({ booking, onSave, open, setOpen }) {
               slotProps={{
                 input: {
                   id: "guests-select",
+                  "data-testid": "guests-select",
                 },
               }}
               {...formik.getFieldProps("guests")}
@@ -259,6 +269,7 @@ function BookingModal({ booking, onSave, open, setOpen }) {
               slotProps={{
                 input: {
                   id: "occasion-select",
+                  "data-testid": "occasion-select",
                 },
               }}
               {...formik.getFieldProps("occasion")}
@@ -280,13 +291,21 @@ function BookingModal({ booking, onSave, open, setOpen }) {
       </DialogContent>
       <DialogActions>
         <Button
+          id="book-button"
+          data-testid="book-button"
           variant="contained"
           color="secondary"
           onClick={formik.handleSubmit}
         >
           Book
         </Button>
-        <Button variant="outlined" color="error" onClick={handleCancel}>
+        <Button
+          id="cancel-button"
+          data-testid="cancel-button"
+          variant="outlined"
+          color="error"
+          onClick={handleCancel}
+        >
           Cancel
         </Button>
       </DialogActions>
@@ -294,4 +313,4 @@ function BookingModal({ booking, onSave, open, setOpen }) {
   );
 }
 
-export default BookingModal;
+export default BookingForm;

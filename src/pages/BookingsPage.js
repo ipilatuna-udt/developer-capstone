@@ -8,7 +8,7 @@ import {
   InputBase,
   InputLabel,
 } from "@mui/material";
-import { BookingList, BookingModal } from "../components/booking";
+import { BookingList, BookingForm } from "../components/booking";
 import { defaultBookings } from "../components/booking/defaultBookings";
 import {
   Search as SearchIcon,
@@ -149,7 +149,7 @@ function BookingsPage() {
           onDelete={onDelete}
         />
       </Box>
-      <BookingModal
+      <BookingForm
         open={open}
         booking={editingBooking}
         setOpen={setOpen}
