@@ -5,24 +5,26 @@ const HeaderLogo = () => (
   <Button
     href="/"
     variant="outlined"
-    aria-label="Little Lemon Restaurant"
+    aria-label="Little Lemon Restaurant homepage"
     sx={{ background: "white", p: 1 }}
   >
     <img
       src="/assets/little-lemon-header.jpg"
       alt="Little Lemon Restaurant logo"
       height={48}
-      aria-label="Little Lemon Restaurant"
     />
   </Button>
 );
 
 function Header() {
+  const currentPath = window.location.pathname;
+
   return (
-    <header>
+    <header role="banner">
       <AppBar position="static">
         <Box
           component="nav"
+          aria-label="Primary Navigation"
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -38,7 +40,13 @@ function Header() {
             }}
           >
             {pages.map((page) => (
-              <Button key={page.href} href={page.href} variant="contained">
+              <Button
+                key={page.href}
+                href={page.href}
+                variant="contained"
+                aria-label={page.label}
+                aria-current={currentPath === page.href ? "page" : undefined}
+              >
                 {page.label}
               </Button>
             ))}

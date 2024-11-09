@@ -101,10 +101,12 @@ function BookingsPage() {
           gap: 2,
           p: 2,
         }}
+        aria-label="Bookings page"
+        role="main"
       >
         <Title title="Bookings" />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Paper sx={{ display: "flex" }}>
+          <Paper sx={{ display: "flex" }} role="search" aria-label="Search bookings">
             <InputLabel
               sx={{ visibility: "hidden", width: 0 }}
               htmlFor="search-bookings-input"
@@ -115,7 +117,7 @@ function BookingsPage() {
               id="search-bookings-input"
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search Booking"
-              inputProps={{ "aria-label": "search booking" }}
+              inputProps={{ "aria-label": "search booking by occasion" }}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={(e) => {
@@ -127,26 +129,47 @@ function BookingsPage() {
             <IconButton
               type="button"
               sx={{ p: "10px" }}
-              aria-label="search"
+              aria-label="execute search"
               onClick={onSearch}
             >
               <SearchIcon />
             </IconButton>
-            <Button onClick={onNew} variant="contained">
+            <Button
+              onClick={onNew}
+              variant="contained"
+              aria-label="Add a new booking"
+            >
               <AddIcon sx={{ mr: 1 }} />
               Book Now
             </Button>
           </Paper>
         </Box>
-        {actionAlert && <Box sx={{ display: "flex", justifyContent: "center", position: 'absolute', right: 0 }} >
-          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={()=> setActionAlert("")}>
-            Booking {actionAlert} successfully!
-          </Alert>
-        </Box>}
+        {actionAlert && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              position: "absolute",
+              right: 0,
+            }}
+            role="alert"
+            aria-live="assertive"
+          >
+            <Alert
+              icon={<CheckIcon fontSize="inherit" />}
+              severity="success"
+              onClose={() => setActionAlert("")}
+              aria-label={`Booking ${actionAlert} successfully`}
+            >
+              Booking {actionAlert} successfully!
+            </Alert>
+          </Box>
+        )}
         <BookingList
           bookings={filteredBookings}
           onEdit={onEdit}
           onDelete={onDelete}
+          aria-label="List of bookings"
         />
       </Box>
       <BookingForm
@@ -154,6 +177,7 @@ function BookingsPage() {
         booking={editingBooking}
         setOpen={setOpen}
         onSave={onSave}
+        aria-label="Booking form"
       />
     </>
   );

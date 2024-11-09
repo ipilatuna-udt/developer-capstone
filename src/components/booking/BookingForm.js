@@ -160,8 +160,9 @@ function BookingForm({ booking, onSave, open, setOpen }) {
       onClose={handleCancel}
       fullWidth
       fullScreen={fullScreen}
+      aria-labelledby="booking-dialog-title"
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle id="booking-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <Box
           component="form"
@@ -176,6 +177,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
           <FormControl>
             <DatePicker
               id="date-picker"
+              aria-label="Select booking date"
               disablePast
               label="Date"
               value={formik.values.date}
@@ -199,6 +201,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
           <FormControl>
             <TimePicker
               id="time-picker"
+              aria-label="Select booking time"
               label="Time"
               views={["hours"]}
               viewRenderers={{
@@ -241,6 +244,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
                   "data-testid": "guests-select",
                 },
               }}
+              aria-label="Select number of guests"
               {...formik.getFieldProps("guests")}
             >
               <MenuItem value="" disabled>
@@ -272,6 +276,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
                   "data-testid": "occasion-select",
                 },
               }}
+              aria-label="Select occasion type"
               {...formik.getFieldProps("occasion")}
             >
               <MenuItem value="" disabled>
@@ -296,6 +301,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
           variant="contained"
           color="secondary"
           onClick={formik.handleSubmit}
+          aria-label="Submit booking form"
         >
           Book
         </Button>
@@ -305,6 +311,7 @@ function BookingForm({ booking, onSave, open, setOpen }) {
           variant="outlined"
           color="error"
           onClick={handleCancel}
+          aria-label="Cancel booking form"
         >
           Cancel
         </Button>
