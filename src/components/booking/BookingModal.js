@@ -20,6 +20,7 @@ import React, { useCallback, useEffect } from "react";
 import * as Yup from "yup";
 import { renderTimeViewClock } from "@mui/x-date-pickers/timeViewRenderers";
 import { useTheme } from "@emotion/react";
+import {fetchAPI} from "./api";
 
 const availableGuests = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const occasions = [
@@ -38,7 +39,7 @@ const maxDate = DateTime.now().plus({ days: 30 }).endOf("day");
 // Add Yup method to validate minimum hour with luxon
 Yup.addMethod(Yup.string, "hourRange", function (minHour, maxHour, message) {
   return this.test({
-    name: "min",
+    name: "hourRange",
     exclusive: true,
     message: message,
     test: (value) => {
@@ -47,12 +48,43 @@ Yup.addMethod(Yup.string, "hourRange", function (minHour, maxHour, message) {
     },
   });
 });
+Yup.addMethod(Yup.string, "validHours", function (validHours, message) {
+  return this.test({
+    name: "validHours",
+    exclusive: true,
+    message: message,
+    test: (value) => {
+      const valueHour = DateTime.fromISO(value).hour;
+      return validHours.includes(`${valueHour}:00`);
+    },
+  });
+});
+
+Yup.addMethod(Yup.string, "dateRange", function (minDate, maxDate, message) {
+  return this.test({
+    name: "dateRange",
+    exclusive: true,
+    message: message,
+    test: (value) => {
+      const valueDate = DateTime.fromISO(value);
+      return valueDate <= maxDate && valueDate >= minDate;
+    },
+  });
+});
 
 const defaultDate = DateTime.now().startOf("day");
 const defaultTime = DateTime.now().set({ hour: 10 }).startOf("hour");
 
+
 function BookingModal({ booking, onSave, open, setOpen }) {
   const title = booking ? "Edit Booking" : "New Booking";
+
+  const availableTimes = fetchAPI(new Date());
+  const shouldDisableTime = (
+    value,
+    view,
+  ) => view === 'hours' && !availableTimes.includes(`${value.hour}:00`);
+
   const formik = useFormik({
     initialValues: {
       date: defaultDate,
@@ -71,16 +103,18 @@ function BookingModal({ booking, onSave, open, setOpen }) {
       onSave(newBooking);
     },
     validationSchema: Yup.object({
-      date: Yup.date().required("Date is required"),
+      date: Yup.string().required("Date is required").dateRange(DateTime.now().startOf('day'), maxDate, "Date must be within 30 days"),
       time: Yup.string()
         .required("Time is required")
-        .hourRange(minHour, maxHour, "Time must be between 10 AM and 9 PM"),
+        .hourRange(minHour, maxHour, "Time must be between 10 AM and 9 PM")
+        .validHours(availableTimes, "Time is not available"),
       guests: Yup.string().required("Number of guests is required"),
       occasion: Yup.string().required("Occasion is required"),
     }),
   });
 
   useEffect(() => {
+    formik.resetForm();
     if (booking) {
       formik.setValues({
         date: DateTime.fromISO(booking.date),
@@ -171,6 +205,7 @@ function BookingModal({ booking, onSave, open, setOpen }) {
                 formik.setFieldValue("time", time);
                 formik.setFieldTouched("time", true);
               }}
+              shouldDisableTime={shouldDisableTime}
               slotProps={{
                 field: {
                   readOnly: true,

@@ -1,12 +1,22 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Button, IconButton, Paper, InputBase, InputLabel } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  IconButton,
+  Paper,
+  InputBase,
+  InputLabel,
+} from "@mui/material";
 import { BookingList, BookingModal } from "../components/booking";
 import { defaultBookings } from "../components/booking/defaultBookings";
 import {
   Search as SearchIcon,
   AddCircle as AddIcon,
+  Check as CheckIcon,
 } from "@mui/icons-material";
 import { Title } from "../components";
+import { submitAPI } from "../components/booking/api";
 
 function BookingsPage() {
   const [open, setOpen] = useState(false);
@@ -14,6 +24,7 @@ function BookingsPage() {
   const [editingBooking, setEditingBooking] = useState(null);
   const [filteredBookings, setFilteredBookings] = useState(bookings);
   const [searchValue, setSearchValue] = useState("");
+  const [actionAlert, setActionAlert] = useState("");
 
   const onNew = useCallback(() => {
     setEditingBooking(null);
@@ -50,6 +61,10 @@ function BookingsPage() {
         setBookings((prev) => [...prev, { ...booking }]);
       }
       setOpen(false);
+      const success = submitAPI(booking);
+      if (success) {
+        setActionAlert(editingBooking ? "updated" : "created");
+      }
     },
     [setBookings, editingBooking]
   );
@@ -60,6 +75,7 @@ function BookingsPage() {
         return;
       }
       setBookings((prev) => prev.filter((booking) => booking.id !== id));
+      setActionAlert("deleted");
     },
     [setBookings]
   );
@@ -88,10 +104,15 @@ function BookingsPage() {
       >
         <Title title="Bookings" />
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Paper sx={{ display: "flex"}}>
-            <InputLabel sx={{visibility: "hidden", width: 0}} htmlFor="search-bookings-input">Search</InputLabel>
+          <Paper sx={{ display: "flex" }}>
+            <InputLabel
+              sx={{ visibility: "hidden", width: 0 }}
+              htmlFor="search-bookings-input"
+            >
+              Search
+            </InputLabel>
             <InputBase
-            id="search-bookings-input"
+              id="search-bookings-input"
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search Booking"
               inputProps={{ "aria-label": "search booking" }}
@@ -117,6 +138,11 @@ function BookingsPage() {
             </Button>
           </Paper>
         </Box>
+        {actionAlert && <Box sx={{ display: "flex", justifyContent: "center", position: 'absolute', right: 0 }} >
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={()=> setActionAlert("")}>
+            Booking {actionAlert} successfully!
+          </Alert>
+        </Box>}
         <BookingList
           bookings={filteredBookings}
           onEdit={onEdit}
