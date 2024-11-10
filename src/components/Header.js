@@ -29,6 +29,7 @@ function Header() {
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
+            px: 10
           }}
         >
           <HeaderLogo />

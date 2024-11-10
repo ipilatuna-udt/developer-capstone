@@ -1,8 +1,11 @@
+import { Grid2 as Grid } from "@mui/material";
+import { HomeHero } from "../components/home";
+
 function HomePage() {
   return (
-    <div>
-      <h1>Home Page</h1>
-    </div>
+    <Grid container spacing={2}>
+      <HomeHero />
+    </Grid>
   );
 }
 
