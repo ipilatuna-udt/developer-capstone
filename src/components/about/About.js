@@ -2,21 +2,13 @@ import React from "react";
 import HomeSection from "../home/HomeSection";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
 import "./About.css";
+import description from "./description";
 
-const description = `
-              Little Lemon Restaurant is a family-owned restaurant in Chicago.
-              We serve the best food in town, and we are proud of our excellent
-              service. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-              Sed vehicula condimentum massa, et pellentesque lectus porttitor ut. 
-              Suspendisse interdum, nunc quis blandit egestas, purus odio iaculis erat, varius semper ex orci vitae nulla. 
-              Nam pretium turpis magna, a auctor diam convallis eu. Nunc faucibus nibh eget placerat rutrum. Quisque quis erat volutpat, egestas velit vel, dictum risus. 
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-`;
 
 function About() {
   return (
-    <HomeSection background="darkgray">
-      <Grid container spacing={2}>
+    <HomeSection background="darkgray" aria-labelledby="about-section-title">
+      <Grid container spacing={2} role="region" aria-labelledby="about-section-title">
         <Grid
           size={{ xs: 12, md: 6, lg: 8 }}
           sx={{
@@ -25,19 +17,31 @@ function About() {
             justifyContent: "space-around",
             flexDirection: "column",
           }}
+          role="region"
+          aria-labelledby="about-description"
         >
           <Box>
-            <Typography variant="h3">About Us</Typography>
-            <Typography variant="h6">{description}</Typography>
+            <Typography variant="h3" id="about-section-title">About Us</Typography>
+            <Typography variant="h6" id="about-description">
+              {description}
+            </Typography>
           </Box>
         </Grid>
-        <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+        <Grid size={{ xs: 12, md: 6, lg: 4 }} role="complementary" aria-label="Restaurant Owner Image">
           <Box>
             <img
               className="about-image"
               src="/assets/home/little-lemon-owner.jpg"
-              alt="restaurant bar"
+              alt="Restaurant owner at Little Lemon"
+              aria-describedby="image-description"
             />
+            <Typography
+              variant="body2"
+              id="image-description"
+              aria-hidden="true"
+            >
+              This image shows the owner of Little Lemon Restaurant.
+            </Typography>
           </Box>
         </Grid>
       </Grid>
