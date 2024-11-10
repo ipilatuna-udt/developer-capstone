@@ -20,21 +20,25 @@ const pages = [
     href: "/menu",
     component: MenuPage,
     label: "Menu",
+    disabled: true,
   },
   {
     href: "/bookings",
     component: BookingsPage,
     label: "Bookings",
+    visible: true,
   },
   {
     href: "/order-online",
     component: OrderOnlinePage,
     label: "Order Online",
+    disabled: true,
   },
   {
     href: "/login",
     component: LoginPage,
     label: "Login",
+    disabled: true,
   },
 ];
 

@@ -11,6 +11,9 @@ const theme = createTheme({
     secondary: {
       main: "#F4CE14",
     },
+    action:{
+      disabled: "darkgray",
+    }
   },
 });
 

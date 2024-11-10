@@ -1,4 +1,4 @@
-import { AppBar, Box, Button } from "@mui/material";
+import { AppBar, Box, Button, Tooltip } from "@mui/material";
 import { pages } from "../pages/routing";
 
 const HeaderLogo = () => (
@@ -40,15 +40,27 @@ function Header() {
             }}
           >
             {pages.map((page) => (
-              <Button
+              <Tooltip
                 key={page.href}
-                href={page.href}
-                variant="contained"
-                aria-label={page.label}
-                aria-current={currentPath === page.href ? "page" : undefined}
+                title={page.disabled ? "Coming soon" : ""}
+                placement="bottom"
               >
-                {page.label}
-              </Button>
+                <span>
+                  <Button
+                    key={page.href}
+                    href={page.href}
+                    variant="contained"
+                    aria-label={page.label}
+                    aria-current={
+                      currentPath === page.href ? "page" : undefined
+                    }
+                    disabled={page.disabled}
+                    aria-disabled={page.disabled}
+                  >
+                    {page.label}
+                  </Button>
+                </span>
+              </Tooltip>
             ))}
           </Box>
         </Box>
