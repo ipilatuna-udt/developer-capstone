@@ -1,11 +1,12 @@
-import { Grid2 as Grid } from "@mui/material";
-import { HomeHero } from "../components/home";
+import { Box} from "@mui/material";
+import { HomeHero, HomeTestimonials } from "../components/home";
 
 function HomePage() {
   return (
-    <Grid container spacing={2}>
+    <Box display="flex" gap={2} flexDirection="column">
       <HomeHero />
-    </Grid>
+      <HomeTestimonials />
+    </Box>
   );
 }
 
