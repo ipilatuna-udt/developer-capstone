@@ -46,6 +46,7 @@ function HeroSection() {
             color="secondary"
             href="/bookings"
             size="large"
+            role="button"
           >
             Book a Table
           </Button>
