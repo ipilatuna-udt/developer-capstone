@@ -36,7 +36,6 @@ const minHour = DateTime.now().set({ hour: 10 }).startOf("hour");
 const maxHour = DateTime.now().set({ hour: 21 }).endOf("hour");
 const maxDate = DateTime.now().plus({ days: 30 }).endOf("day");
 
-// Add Yup method to validate minimum hour with luxon
 Yup.addMethod(Yup.string, "hourRange", function (minHour, maxHour, message) {
   return this.test({
     name: "hourRange",

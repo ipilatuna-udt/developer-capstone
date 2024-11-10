@@ -1,5 +1,3 @@
-// Custom theme provider for material ui
-
 import { createTheme, ThemeProvider as MuiThemeProvider } from "@mui/material";
 import { createContext } from "react";
 

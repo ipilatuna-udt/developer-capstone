@@ -103,7 +103,7 @@ describe("BookingForm", () => {
   });
 
   it("prompts confirmation on cancel when form is dirty", async () => {
-    global.confirm = jest.fn(() => true); // Mock window.confirm
+    global.confirm = jest.fn(() => true);
 
     renderComponent(defaultProps);
 

@@ -7,6 +7,7 @@ const HeaderLogo = () => (
     variant="outlined"
     aria-label="Little Lemon Restaurant homepage"
     sx={{ background: "white", p: 1 }}
+    role="button"
   >
     <img
       src="/assets/little-lemon-header.jpg"
@@ -58,6 +59,7 @@ function Header() {
                     }
                     disabled={page.disabled}
                     aria-disabled={page.disabled}
+                    role="button"
                   >
                     {page.label}
                   </Button>
