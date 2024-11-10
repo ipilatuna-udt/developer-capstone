@@ -50,6 +50,7 @@ function Header() {
                     key={page.href}
                     href={page.href}
                     variant="contained"
+                    size="large"
                     aria-label={page.label}
                     aria-current={
                       currentPath === page.href ? "page" : undefined
