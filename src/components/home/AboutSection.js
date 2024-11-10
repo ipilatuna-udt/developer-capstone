@@ -1,11 +1,11 @@
 import React from "react";
 import HomeSection from "./HomeSection";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
-import "./About.css";
+import "./AboutSection.css";
 import description from "../about/description";
 
 
-function About() {
+function AboutSection() {
   return (
     <HomeSection aria-labelledby="about-section-title">
       <Grid container spacing={2} role="region" aria-labelledby="about-section-title">
@@ -49,4 +49,4 @@ function About() {
   );
 }
 
-export default About;
+export default AboutSection;

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import HomeSection from "./HomeSection";
 
-const testimonials = [
+export const testimonials = [
   {
     id: 1,
     name: "John Doe",

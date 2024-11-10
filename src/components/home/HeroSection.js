@@ -1,11 +1,21 @@
 import React from "react";
-import { Typography, Button, Grid2 as Grid } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Grid2 as Grid,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import "./Hero.css";
 import HomeSection from "./HomeSection";
 
 function HeroSection() {
+  const theme = useTheme();
   const bodyText =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula condimentum massa, et pellentesque lectus porttitor ut. Suspendisse interdum, nunc quis blandit egestas, purus odio iaculis erat, varius semper ex orci vitae nulla. Nam pretium turpis magna, a auctor diam convallis eu. Nunc faucibus nibh eget placerat rutrum. Quisque quis erat volutpat, egestas velit vel, dictum risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.";
+
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <HomeSection background="black" color="white">
       <Grid
@@ -24,8 +34,12 @@ function HeroSection() {
             padding: 2,
           }}
         >
-          <Typography variant="h1">Little Lemon Restaurant</Typography>
-          <Typography variant="h2">Chicago</Typography>
+          <Typography variant="h1" fontSize={isSmallScreen ? "4rem" : "5rem"}>
+            Little Lemon Restaurant
+          </Typography>
+          <Typography variant="h2" fontSize={isSmallScreen ? "2rem" : "3rem"}>
+            Chicago
+          </Typography>
           <Typography variant="body1">{bodyText}</Typography>
           <Button
             variant="contained"
@@ -49,7 +63,7 @@ function HeroSection() {
         >
           <img
             className="hero-image"
-            src="../../assets/home/little-lemon-restaurant.jpg"
+            src="/assets/home/little-lemon-restaurant.jpg"
             alt="restaurant"
           />
         </Grid>

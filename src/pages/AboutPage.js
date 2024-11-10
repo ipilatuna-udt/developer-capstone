@@ -1,6 +1,6 @@
 import { Box, Container, Grid2 as Grid, Typography } from "@mui/material";
 import { Title } from "../components";
-import { homeDescription } from "../components/about";
+import { aboutDescription } from "../components/about";
 
 function AboutPage() {
   return (
@@ -23,10 +23,10 @@ function AboutPage() {
             aria-labelledby="about-description"
           >
             <Typography variant="h6" id="about-description">
-              {homeDescription}
+              {aboutDescription}
             </Typography>
-            <Typography variant="h6">{homeDescription}</Typography>
-            <Typography variant="h6">{homeDescription}</Typography>
+            <Typography variant="h6">{aboutDescription}</Typography>
+            <Typography variant="h6">{aboutDescription}</Typography>
           </Grid>
           <Grid
             size={{ xs: 12, md: 6, lg: 4 }}
