@@ -1,13 +1,13 @@
 import React from "react";
-import HomeSection from "../home/HomeSection";
+import HomeSection from "./HomeSection";
 import { Box, Grid2 as Grid, Typography } from "@mui/material";
 import "./About.css";
-import description from "./description";
+import description from "../about/description";
 
 
 function About() {
   return (
-    <HomeSection background="darkgray" aria-labelledby="about-section-title">
+    <HomeSection aria-labelledby="about-section-title">
       <Grid container spacing={2} role="region" aria-labelledby="about-section-title">
         <Grid
           size={{ xs: 12, md: 6, lg: 8 }}

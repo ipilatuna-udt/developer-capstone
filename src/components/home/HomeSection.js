@@ -1,8 +1,8 @@
 import { Box,Container } from '@mui/material'
 
-function HomeSection({background, color, children}) {
+function HomeSection({background, color, children, ...props}) {
   return (
-  <Box width={1} sx={{background, color, mb:2}}>
+  <Box width={1} sx={{background, color, py: 4}} {...props}>
     <Container>
         {children}
     </Container>
